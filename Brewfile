@@ -1,28 +1,38 @@
-# tap "romkatv/powerlevel10k"
-# brew "chezmoi"
+# GitHub command-line tool
 brew "gh"
+# Distributed revision control system
 brew "git"
+# Lightweight and flexible command-line JSON processor
 brew "jq"
-# brew "zoxide"
-# brew "fzf"
-# brew "eza"
-# brew "fd"
-# brew "neovim"
-# brew "zsh-syntax-highlighting"
-# brew "zsh-autosuggestions"
-# brew "zsh-completions"
-# brew "mise"
-# brew "powerlevel10k"
-# brew "ripgrep"
-# brew "bat"
-brew "tree"
-
-# cask "font-dejavu-sans-mono-nerd-font"
-# cask "font-source-han-code-jp"
+# Image format providing lossless and lossy compression for web images
+brew "webp"
+# Node.js version manager
+brew "nodebrew"
+# Search tool like grep and The Silver Searcher
+brew "ripgrep"
+# Find security issues in GitHub Actions setups
+brew "zizmor"
+# Clipboard extension app
+cask "clipy"
+# Productivity app
+cask "dropzone"
+# Web browser
+cask "firefox"
+# Terminal emulator that uses platform-native UI and GPU acceleration
 cask "ghostty"
+# Web browser
 cask "google-chrome"
-# cask "karabiner-elements" # USキーボードの場合
-# cask "raycast"
-# cask "slack"
-# cask "visual-studio-code"
+# Provides updates to various Microsoft products
+cask "microsoft-auto-update"
+# Meet, chat, call, and collaborate in just one place
+cask "microsoft-teams"
+# Move and resize windows using keyboard shortcuts or snap areas
+cask "rectangle"
+# File transfer application
+# cask "transmit"
+# Multiplayer code editor
 cask "zed"
+brew "tree"
+vscode "chrmarti.regex"
+vscode "esbenp.prettier-vscode"
+npm "corepack"
