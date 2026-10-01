@@ -38,6 +38,7 @@ trap 'code=$?; err "Failed at line $LINENO: $BASH_COMMAND (exit $code)"; exit $c
 if ! "$BREW" -v >/dev/null 2>&1; then
   err "Homebrew not found. Run bootstrap first:
   bash <(curl -fsSL https://raw.githubusercontent.com/<OWNER>/setup/<BRANCH>/bootstrap.sh) --owner <OWNER> --branch <BRANCH>"
+  exit 1
 fi
 eval "$("$BREW" shellenv)"
 
@@ -107,8 +108,8 @@ if [[ "$DO_SSH" -eq 1 ]]; then
   fi
   if git -C "$REPO_DIR" rev-parse --is-inside-work-tree >/dev/null 2>&1; then
     url="$(git -C "$REPO_DIR" remote get-url origin 2>/dev/null || true)"
-    if [[ "$url" =~ ^https://github\.com/([^/]+)/([^/]+?)(\.git)?$ ]]; then
-      owner="${BASH_REMATCH[1]}"; name="${BASH_REMATCH[2]}"
+    if [[ "$url" =~ ^https://github\.com/([^/]+)/([^/]+)$ ]]; then
+      owner="${BASH_REMATCH[1]}"; name="${BASH_REMATCH[2]%.git}"
       new="git@github.com:${owner}/${name}.git"
       log "Switching origin to SSH: $new"
       git -C "$REPO_DIR" remote set-url origin "$new"
@@ -136,7 +137,8 @@ cat <<'EOS'
 ✅ Setup done.
 
 Next steps:
-  1) You can now apply dotfiles with your preferred method (e.g., chezmoi).
+	1) make nix   （完了後、新しいターミナルを開く）
+	2) age 鍵を ~/.config/sops/age/keys.txt に配置（chmod 600）
+	3) make home
 
 EOS
-

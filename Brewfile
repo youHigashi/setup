@@ -6,8 +6,6 @@ brew "git"
 brew "jq"
 # Image format providing lossless and lossy compression for web images
 brew "webp"
-# Node.js version manager
-brew "nodebrew"
 # Search tool like grep and The Silver Searcher
 brew "ripgrep"
 # Find security issues in GitHub Actions setups
@@ -32,7 +30,6 @@ cask "rectangle"
 # cask "transmit"
 # Multiplayer code editor
 cask "zed"
-brew "tree"
 vscode "chrmarti.regex"
 vscode "esbenp.prettier-vscode"
 npm "corepack"

@@ -24,9 +24,7 @@ brew bundle dump --global
 2. `setup.sh`: 
    - SSH鍵を生成してGitHubへ公開鍵を登録  
    - macOSのplist関連を更新  
-
-3. `dotfiles.sh`: 
-   - `chezmoi`のインストールから初期化と、ホームディレクトリへの反映  
+  
 
 ---  
 
