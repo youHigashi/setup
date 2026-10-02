@@ -10,6 +10,8 @@ Apple Silicon Mac から Apple Silicon Mac への開発環境の移行手順。
 | 初期セットアップ | `bootstrap.sh` / `setup.sh` / `Makefile` | 同上 |
 | dotfiles・CLI ツール | home-manager（Nix） | `github.com/youHigashi/home-manager-config` → `~/.config/home-manager` |
 | secret | sops + age | 鍵：`~/.config/sops/age/keys.txt`（**git 管理外**） |
+| グローバルの Node / npm | home-manager（`home.packages` の `nodejs_XX`） | 同上 |
+| `npm i -g` で入れたもの | `~/.npm-global`（`NPM_CONFIG_PREFIX`） | 移行時に一覧から入れ直す |
 | プロジェクトごとのツール（Node、pnpm など） | 各プロジェクトの `flake.nix` + direnv | 各リポジトリ |
 
 **原則**
