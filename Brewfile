@@ -30,6 +30,4 @@ cask "rectangle"
 # cask "transmit"
 # Multiplayer code editor
 cask "zed"
-vscode "chrmarti.regex"
-vscode "esbenp.prettier-vscode"
 npm "corepack"
