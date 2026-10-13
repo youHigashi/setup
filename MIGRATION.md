@@ -39,13 +39,14 @@ nix profile list
 ### 1-2. HM 管理外の dotfiles が増えていないか確認する
 
 ```sh
-ls -la ~/.zshrc ~/.zprofile ~/.config/git/config
+ls -la ~/.zshrc ~/.zprofile ~/.config/git/config ~/.ssh/config
 ```
 
 - すべて `/nix/store/...` へのシンボリックリンクであれば OK。
 - 実ファイルがあれば、その中身を `home.nix` に取り込む（手順は下記）。
 	- **再発防止**：新しいツールは、公式インストーラではなく最初から `home.packages` か `programs.*` で入れる
 - `~/.gitconfig` が存在したら、中身を HM に移してから削除する。HM の設定より優先されてしまうため。
+- `~/.ssh/config` が実ファイルなら、`Host` ごとの設定を `programs.ssh.matchBlocks` に移す。`github.com` 以外の Host で使っている鍵ファイルは、1-7 で別途退避する。
 
 > 実ファイルになる典型的な原因：ツールのインストーラ（`curl ... | sh` など）が `.zshrc` に追記し、HM のリンクを実ファイルで置き換えたため。
 
@@ -251,3 +252,19 @@ ls ~/*.backup ~/.*.backup 2>/dev/null   # 中身を確認してから削除
 ### `home.packages` に書いたパッケージで評価エラーになる
 - **原因**：コマンド名とパッケージ名は一致するとは限らない（例：`du` は単独のパッケージとしては存在しない）。
 - **対策**：`nix search nixpkgs <名前>` や `nix eval nixpkgs#<名前>.name` で、パッケージが存在するか事前に確認する。macOS 標準のコマンドで足りるなら追加しない。
+
+### 再起動後に `git push` が `Permission denied (publickey)` になる
+- **原因**：`setup.sh` が作る鍵は `~/.ssh/id_ed25519_github` という標準外の名前のため、`~/.ssh/config` で指定しないと SSH が使わない。`make setup` 直後は ssh-agent に読み込まれていたので通るが、再起動で agent が空になると失敗する。
+- **応急処置**：`ssh-add ~/.ssh/id_ed25519_github`
+- **恒久対策**：`home.nix` に次を追加して switch する。
+```nix
+  programs.ssh = {
+    enable = true;
+    enableDefaultConfig = false;
+    matchBlocks."github.com" = {
+      identityFile = "~/.ssh/id_ed25519_github";
+      identitiesOnly = true;
+      addKeysToAgent = "yes";
+    };
+  };
+```
