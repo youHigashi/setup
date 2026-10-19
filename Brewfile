@@ -30,4 +30,3 @@ cask "rectangle"
 # cask "transmit"
 # Multiplayer code editor
 cask "zed"
-npm "corepack"
